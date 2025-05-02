@@ -3,8 +3,7 @@
  */
 import { StrapiPost } from './types';
 
-const API_URL =
-  process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337';
+const API_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 const API_TOKEN = process.env.NEXT_PUBLIC_STRAPI_TOKEN;
 
 export interface StrapiPagination {
@@ -41,6 +40,7 @@ export async function fetchAPI(
   urlParamsObject: Record<string, any> = {},
   options: RequestInit = {}
 ) {
+  console.log(path);
   const mergedOptions: RequestInit = {
     headers: {
       'Content-Type': 'application/json',
@@ -76,6 +76,8 @@ export async function fetchAPI(
     queryString ? `?${queryString}` : ''
   }`;
 
+  console.log(requestUrl);
+  console.log(queryString);
   try {
     const response = await fetch(requestUrl, mergedOptions);
     console.log(requestUrl);
@@ -109,6 +111,8 @@ export async function getPosts(params: Record<string, any> = {}) {
       sort: 'publishedAt:desc',
       ...params,
     });
+
+    console.log(data);
 
     return {
       posts: data as StrapiPost[],

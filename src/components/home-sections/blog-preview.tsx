@@ -16,6 +16,8 @@ async function getLatestPosts() {
     populate: '*',
   });
 
+  console.log(posts);
+
   return posts || [];
 }
 
