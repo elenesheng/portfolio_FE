@@ -14,7 +14,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
   if (!post) {
     notFound();
   }
-
   const imageUrl = getImageFormat(post, 'large');
   const date = new Date(
     post?.publishedAt || post?.createdAt

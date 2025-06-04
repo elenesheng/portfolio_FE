@@ -28,6 +28,12 @@ export interface StrapiResponse<T> {
   };
 }
 
+export interface AboutMe {
+  id: number;
+  Title: string;
+  Content: string;
+}
+
 /**
  * Helper to make GET requests to Strapi API endpoints
  * @param {string} path Path of the API route
@@ -40,7 +46,6 @@ export async function fetchAPI(
   urlParamsObject: Record<string, any> = {},
   options: RequestInit = {}
 ) {
-  console.log(path);
   const mergedOptions: RequestInit = {
     headers: {
       'Content-Type': 'application/json',
@@ -76,11 +81,8 @@ export async function fetchAPI(
     queryString ? `?${queryString}` : ''
   }`;
 
-  console.log(requestUrl);
-  console.log(queryString);
   try {
     const response = await fetch(requestUrl, mergedOptions);
-    console.log(requestUrl);
 
     if (!response.ok) {
       return {
@@ -111,8 +113,6 @@ export async function getPosts(params: Record<string, any> = {}) {
       sort: 'publishedAt:desc',
       ...params,
     });
-
-    console.log(data);
 
     return {
       posts: data as StrapiPost[],
@@ -179,4 +179,18 @@ export function getStrapiMedia(media: StrapiMedia | null) {
 
   const { url } = media.data.attributes;
   return url.startsWith('/') ? `${API_URL}${url}` : url;
+}
+
+/**
+ * Get About Me from Strapi
+ * @returns About Me data
+ */
+export async function getAboutMe(): Promise<AboutMe | null> {
+  try {
+    const { data } = await fetchAPI('/about-section', { populate: '*' });
+
+    return data || null;
+  } catch (error) {
+    return null;
+  }
 }

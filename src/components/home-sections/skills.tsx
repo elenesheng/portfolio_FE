@@ -78,18 +78,20 @@ export default function Skills() {
                   My Approach
                 </h3>
                 <p className="text-amber-800 leading-relaxed">
-                  I love collaborating with teams, but I'm also highly effective
-                  working as a freelancer. I specialize in building full-stack
-                  web apps for businesses, from simple websites to complex
-                  platforms. Using modern technologies like Next.js paired with
-                  headless CMSs such as Strapi, Drupal, or WordPress, I create
-                  high-quality, user-friendly solutions that cater to your
-                  needs.
+                  As a freelancer, I’ve helped companies build full-stack web
+                  apps using React, Next.js, and headless CMSs like Strapi, and
+                  Drupal. I focus on practical, user-friendly solutions that
+                  meet real business needs.
                 </p>
                 <p className="text-amber-800 leading-relaxed">
-                  Do you run a small or medium-sized business and want a
-                  top-tier web app with clear communication and ongoing support?
-                  Let's work together to bring your vision to life.
+                  While I specialize in front-end and full-stack projects, I’m
+                  also exploring creative coding with p5.js and Three.js, and
+                  learning more about 2D/3D programming.
+                </p>
+                <p className="text-amber-800 leading-relaxed">
+                  I also love writing articles, it helps me understand topics
+                  more deeply, and I hope they’re useful to other developers
+                  too. Feel free to check out my articles in the blog section.
                 </p>
                 <div className="space-y-4">
                   <div className="pt-4">

@@ -3,18 +3,18 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
+    domains: ['localhost', 'your-strapi-cloud-url.strapiapp.com'],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'colorful-frog-ca64baff3b.strapiapp.com',
-        port: '',
+        hostname: '*.strapiapp.com',
         pathname: '/uploads/**',
       },
       {
-        protocol: 'https',
-        hostname: 'colorful-frog-ca64baff3b.media.strapiapp.com',
-        port: '',
-        pathname: '/**',
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '1337',
+        pathname: '/uploads/**',
       },
     ],
   },

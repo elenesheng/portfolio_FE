@@ -1,8 +1,13 @@
 import { Button } from '@components/ui/button';
 import Image from 'next/image';
 import { SocialIcons } from '@components/social-icons';
+import { getAboutMe } from '@lib/strapi';
+import { renderRichText } from '@lib/utils';
 
-export default function About() {
+export default async function About() {
+  const aboutMe = await getAboutMe();
+  console.log(aboutMe);
+
   return (
     <section id="about" className="py-16 md:py-24 container mx-auto relative">
       <div className="grid md:grid-cols-2 gap-8 items-center relative z-20">
@@ -23,27 +28,25 @@ export default function About() {
         </div>
         <div className="space-y-6">
           <div className="inline-block px-4 py-1 bg-amber-200 rounded-full text-amber-800 font-mono text-sm">
-            About Me
+            {aboutMe?.Title || 'About Me'}
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-amber-900 font-serif">
             Hi, Im <span className="text-rose-600">Elene</span>
           </h2>
-          <p className="text-lg text-amber-800 leading-relaxed">
-            I'm a front-end developer, I'm passionate about creating intuitive
-            and visually appealing web apps. Over the years, I've worked with
-            everything from WordPress to full-stack JavaScript with React,
-            Next.js, and TypeScript.
-          </p>
-          <p className="text-lg text-amber-800 leading-relaxed">
-            What really excites me is writing articles about tech — it helps me
-            dig deeper into the topics I care about and stay sharp.
-          </p>
-          <div className="space-y-4">
-            <div className="pt-4">
-              <p className="text-amber-800 font-medium mb-2">
-                <span className="text-rose-600">Connect with me: </span>
-              </p>
-              <SocialIcons />
+          <div className="prose prose-amber max-w-none bg-amber-50 p-8 rounded-lg shadow-md bg-[url('/images/vintage-paper-texture.png')] bg-repeat blog-content">
+            <div
+              dangerouslySetInnerHTML={{
+                __html: renderRichText(aboutMe?.Content) || '',
+              }}
+            />
+
+            <div className="space-y-4">
+              <div className="pt-4">
+                <p className="text-amber-800 font-medium mb-2">
+                  <span className="text-rose-600">Connect with me: </span>
+                </p>
+                <SocialIcons />
+              </div>
             </div>
           </div>
         </div>

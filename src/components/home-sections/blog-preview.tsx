@@ -4,7 +4,7 @@ import { Card, CardContent } from '@components/ui/card';
 import { Badge } from '@components/ui/badge';
 import { Button } from '@components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { getPosts, getStrapiMedia } from '@lib/strapi';
+import { getPosts } from '@lib/strapi';
 import { StrapiPost } from '@lib/types';
 import { getImageFormat } from '@lib/image-utils';
 
@@ -15,9 +15,6 @@ async function getLatestPosts() {
     },
     populate: '*',
   });
-
-  console.log(posts);
-
   return posts || [];
 }
 
