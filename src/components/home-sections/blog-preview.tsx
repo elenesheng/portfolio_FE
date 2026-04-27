@@ -4,7 +4,7 @@ import { Card, CardContent } from '@components/ui/card';
 import { Badge } from '@components/ui/badge';
 import { Button } from '@components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { getPosts } from '@lib/strapi';
+import { getPosts, postPathSegment } from '@lib/strapi';
 import { StrapiPost } from '@lib/types';
 import { getImageFormat } from '@lib/image-utils';
 
@@ -57,8 +57,8 @@ export default async function BlogPreview() {
           Latest From The Blog
         </h2>
         <p className="text-lg text-amber-800">
-          Thoughts, ideas, and insights about web development, design, and
-          technology.
+          Thoughts, ideas, and insights about web development, design,
+          technology and photography.
         </p>
       </div>
 
@@ -70,7 +70,7 @@ export default async function BlogPreview() {
 
           return (
             <div key={id}>
-              <Link href={`/blog/${post.slug}`} className="group">
+              <Link href={`/blog/${postPathSegment(post)}`} className="group">
                 <Card className="overflow-hidden border-amber-200 hover:border-amber-400 transition-colors duration-300">
                   <div className="relative h-64 overflow-hidden bg-amber-100 bg-[url('/images/vintage-paper-texture.png')] bg-repeat">
                     {post.category && (
@@ -90,7 +90,7 @@ export default async function BlogPreview() {
                   <CardContent className="p-6 bg-amber-50">
                     <div className="text-sm text-amber-700 mb-2 font-mono">
                       {new Date(
-                        post.publishedAt || post.createdAt
+                        post.publishedAt || post.createdAt,
                       ).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'long',

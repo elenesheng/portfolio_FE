@@ -24,8 +24,11 @@ export const scrollToSection = (id: string) => {
   return false;
 };
 
-export function renderRichText(content: string | undefined | null): string {
-  if (!content || !Array.isArray(content)) return '';
+export function renderRichText(content: unknown): string {
+  if (content == null || content === '') return '';
+  // Strapi Rich Text (HTML) stored as a string
+  if (typeof content === 'string') return content;
+  if (!Array.isArray(content)) return '';
 
   return content
     .map((block) => {

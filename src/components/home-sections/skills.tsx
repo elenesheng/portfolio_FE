@@ -39,29 +39,22 @@ export default function Skills() {
           <div>
             <div className="space-y-8">
               {[
-                { name: 'Front-End Development', level: 100, color: '#C2410C' },
-                { name: 'Tech Writing', level: 100, color: '#EA580C' },
-                {
-                  name: '3D Animation (just started)',
-                  level: 75,
-                  color: '#FB923C',
-                },
-                { name: 'Headless CMS', level: 100, color: '#FDBA74' },
+                { name: 'Front-End Development', color: '#C2410C' },
+                { name: 'Full-Stack Development', color: '#EA580C' },
+                { name: 'Tech Writing', color: '#F97316' },
+                { name: '3D Animation', color: '#FB923C' },
+                { name: 'Headless CMS', color: '#FDBA74' },
+                { name: 'AI tools in real projects', color: '#D97706' },
+                { name: 'Photography', color: '#E11D48' },
               ].map((skill, index) => (
                 <div key={index} className="space-y-2">
-                  <div className="flex justify-between">
-                    <span className="font-medium text-amber-900">
-                      {skill.name}
-                    </span>
-                    <span className="text-amber-700">{skill.level}%</span>
-                  </div>
+                  <span className="font-medium text-amber-900">
+                    {skill.name}
+                  </span>
                   <div className="h-3 w-full bg-amber-200 rounded-full overflow-hidden">
                     <div
-                      className="h-full rounded-full transition-all duration-1000 ease-out"
-                      style={{
-                        width: `${skill.level}%`,
-                        backgroundColor: skill.color,
-                      }}
+                      className="h-full w-full rounded-full transition-all duration-1000 ease-out"
+                      style={{ backgroundColor: skill.color }}
                     />
                   </div>
                 </div>
@@ -86,12 +79,23 @@ export default function Skills() {
                 <p className="text-amber-800 leading-relaxed">
                   While I specialize in front-end and full-stack projects, I’m
                   also exploring creative coding with p5.js and Three.js, and
-                  learning more about 2D/3D programming.
+                  learning more about 2D/3D programming. I’m curious about AI
+                  too and where they genuinely speed up work versus where you
+                  still need a human to think things through.
                 </p>
                 <p className="text-amber-800 leading-relaxed">
                   I also love writing articles, it helps me understand topics
                   more deeply, and I hope they’re useful to other developers
                   too. Feel free to check out my articles in the blog section.
+                </p>
+                <p className="text-amber-800 leading-relaxed">
+                  Outside of code, I enjoy{' '}
+                  <span className="font-medium text-amber-900">
+                    film and street photography
+                  </span>
+                  . I’ll be sharing some of my photos here, along with short
+                  articles on photography when I have something worth writing
+                  down.
                 </p>
                 <div className="space-y-4">
                   <div className="pt-4">

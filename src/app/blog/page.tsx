@@ -1,14 +1,17 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import type { Metadata } from 'next';
 import { Card, CardContent } from '@components/ui/card';
 import { Badge } from '@components/ui/badge';
-import { getPosts, getStrapiMedia } from '@lib/strapi';
+import { getPosts, postPathSegment } from '@lib/strapi';
 import { StrapiPost } from '@lib/types';
 import { getImageFormat } from '@lib/image-utils';
 
-export const metadata = {
-  title: 'Blog | Elene Shengelia',
-  description: 'Read the latest articles and insights',
+export const metadata: Metadata = {
+  title: 'Blog',
+  description:
+    'Articles and notes from Elene—mostly front-end and full-stack work, tools that ship, and occasional writing on photography and side projects.',
+  alternates: { canonical: '/blog' },
 };
 
 async function getAllPosts() {
@@ -47,8 +50,9 @@ export default async function BlogPage() {
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.map((post: StrapiPost) => {
-          const { id, title, excerpt, slug, publishedAt, createdAt } = post;
+          const { id, title, excerpt, publishedAt, createdAt } = post;
           const imageUrl = getImageFormat(post, 'small');
+          const pathSeg = postPathSegment(post);
 
           const date = new Date(publishedAt || createdAt).toLocaleDateString(
             'en-US',
@@ -61,7 +65,7 @@ export default async function BlogPage() {
 
           return (
             <div key={id}>
-              <Link href={`/blog/${slug}`} className="group">
+              <Link href={`/blog/${pathSeg}`} className="group">
                 <Card className="overflow-hidden border-amber-200 hover:border-amber-400 transition-colors duration-300">
                   <div className="relative h-64 overflow-hidden bg-amber-100 bg-[url('/images/vintage-paper-texture.png')] bg-repeat">
                     <Image

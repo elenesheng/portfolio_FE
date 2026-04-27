@@ -1,20 +1,72 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
-import { getPost } from '@lib/strapi';
-import { StrapiPost } from '@lib/types';
+import { ArticleJsonLd } from '@components/article-json-ld';
+import { BlogShareLinks } from '@components/blog-share-links';
+import { RichTextWithImageLightbox } from '@components/rich-text-with-image-lightbox';
+import { getPost, prepareStrapiRichTextHtml } from '@lib/strapi';
 import { getImageFormat } from '@lib/image-utils';
+import { getSiteUrl } from '@lib/site';
 import './blog-content.css';
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const post = await getPost(params.slug);
+  if (!post) {
+    return { title: 'Post' };
+  }
+  const site = getSiteUrl();
+  const path = `/blog/${params.slug}`;
+  const canonical = `${site}${path}`;
+  const imageUrl = getImageFormat(post, 'large');
+  let ogImage: string | undefined;
+  if (imageUrl.startsWith('http')) {
+    ogImage = imageUrl;
+  } else if (
+    imageUrl.startsWith('/') &&
+    !imageUrl.includes('placeholder.svg')
+  ) {
+    ogImage = `${site}${imageUrl}`;
+  }
+
+  return {
+    title: post.title,
+    description: post.excerpt || undefined,
+    alternates: { canonical },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt || undefined,
+      url: canonical,
+      siteName: 'Elene Shengelia',
+      type: 'article',
+      publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt,
+      images: ogImage ? [{ url: ogImage, alt: post.title }] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt || undefined,
+      images: ogImage ? [ogImage] : undefined,
+    },
+  };
+}
+
 export default async function Page({ params }: { params: { slug: string } }) {
-  const { slug } = await params;
+  const { slug } = params;
 
   const post = await getPost(slug);
   if (!post) {
     notFound();
   }
-  const imageUrl = getImageFormat(post, 'large');
+  const bodyHtml = prepareStrapiRichTextHtml(post.content || '');
+  const site = getSiteUrl();
+  const canonicalPath = `/blog/${slug}`;
+  const canonicalUrl = `${site}${canonicalPath}`;
   const date = new Date(
     post?.publishedAt || post?.createdAt
   ).toLocaleDateString('en-US', {
@@ -25,6 +77,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <div className="container mx-auto py-12 px-4 max-w-4xl">
+      <ArticleJsonLd post={post} canonicalPath={canonicalPath} />
       <Link
         href="/blog"
         className="text-amber-700 hover:text-amber-900 flex items-center gap-2 mb-8"
@@ -38,24 +91,15 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <h1 className="text-4xl md:text-5xl font-bold text-amber-900 mb-4 font-serif">
           {post.title}
         </h1>
-        <p className="text-lg text-amber-800 mb-8">{post.excerpt}</p>
+        <p className="text-lg text-amber-800 mb-6">{post.excerpt}</p>
+        <BlogShareLinks
+          url={canonicalUrl}
+          title={post.title}
+          excerpt={post.excerpt}
+        />
       </div>
 
-      {imageUrl && (
-        <div className="relative h-[400px] mb-8 overflow-hidden rounded-lg bg-amber-100 bg-[url('/images/vintage-paper-texture.png')] bg-repeat">
-          <Image
-            src={imageUrl}
-            alt={post.title}
-            fill
-            className="object-contain p-4"
-          />
-        </div>
-      )}
-
-      <div
-        className="prose prose-amber max-w-none bg-amber-50 p-8 rounded-lg shadow-md bg-[url('/images/vintage-paper-texture.png')] bg-repeat blog-content"
-        dangerouslySetInnerHTML={{ __html: post.content }}
-      />
+      <RichTextWithImageLightbox html={bodyHtml} />
     </div>
   );
 }

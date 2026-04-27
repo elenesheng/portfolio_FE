@@ -4,6 +4,13 @@
   line-height: 1.7;
 }
 
+/* TinyMCE "align left/right" uses float; this extends the box so the footer does not slide under */
+.blog-content::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
 .blog-content pre {
   background-color: #fff8e1 !important;
   border: 1px solid #ffd54f;
@@ -147,7 +154,7 @@
   margin: 2rem 0;
 }
 
-/* Images */
+/* Images — TinyMCE / Strapi rich text */
 .blog-content img {
   max-width: 100%;
   height: auto;
@@ -160,4 +167,89 @@
 .blog-content img:not(.no-border) {
   border: 8px solid #fff;
   box-shadow: 0 0 0 1px #fbbf24, 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/*
+ * Multiple imgs in one <p> (TinyMCE): inline-block + line-height creates a huge
+ * "strut" line box, so text after <br> sits far below the images. Flex fixes that.
+ */
+.blog-content.prose p:has(> img:nth-of-type(2)) {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  column-gap: 0.75rem;
+  row-gap: 0.5rem;
+}
+
+/* Only the <br> after two imgs (not between imgs) should force a new flex row for text */
+.blog-content.prose p:has(> img + img + br) > img + img + br {
+  flex-basis: 100%;
+  width: 0;
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.blog-content.prose p:has(> img:nth-of-type(2)) > img {
+  display: block !important;
+  flex: 1 1 calc(50% - 0.5rem);
+  max-width: calc(50% - 0.5rem) !important;
+  width: auto !important;
+  margin: 0 !important;
+  box-sizing: border-box;
+}
+
+.blog-content.prose p:has(> img:nth-of-type(3)):not(:has(> img:nth-of-type(4))) > img {
+  flex: 1 1 calc(33.333% - 0.5rem);
+  max-width: calc(33.333% - 0.5rem) !important;
+}
+
+/* Do not fight TinyMCE float/center (align left uses float on the img) */
+.blog-content.prose p:has(> img:only-child) > img:not([style*='float']) {
+  display: block !important;
+  max-width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/*
+ * Two consecutive paragraphs that each contain only an image (common TinyMCE export).
+ * Not scoped with `> p` so it still works if Strapi wraps blocks in a div.
+ */
+.blog-content.prose p:has(> img:only-child):has(+ p:has(> img:only-child)),
+.blog-content.prose p:has(> img:only-child) + p:has(> img:only-child) {
+  display: inline-block;
+  width: calc(50% - 0.5rem);
+  max-width: calc(50% - 0.5rem);
+  vertical-align: top;
+  box-sizing: border-box;
+  margin-right: 0.35rem;
+}
+
+.blog-content.prose p:has(> img:only-child) + p:has(> img:only-child) {
+  margin-right: 0;
+}
+
+.blog-content.prose p:has(> img:only-child):has(+ p:has(> img:only-child)) > img,
+.blog-content.prose p:has(> img:only-child) + p:has(> img:only-child) > img {
+  display: block !important;
+  max-width: 100% !important;
+  margin: 0.75rem 0 !important;
+}
+
+/* TinyMCE spacer paragraphs (full prose margins each → giant gaps) */
+.blog-content.prose p:empty {
+  display: none;
+}
+
+.blog-content.prose p:has(> br:only-child) {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  min-height: 0;
+  line-height: 0;
+}
+
+/* Text block directly after images: avoid stacking default ~1.25em margins */
+.blog-content.prose p:has(> img) + p:not(:has(> img)) {
+  margin-top: 0.75rem !important;
 }

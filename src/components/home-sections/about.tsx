@@ -1,12 +1,14 @@
-import { Button } from '@components/ui/button';
 import Image from 'next/image';
 import { SocialIcons } from '@components/social-icons';
-import { getAboutMe } from '@lib/strapi';
+import { RichTextWithImageLightbox } from '@components/rich-text-with-image-lightbox';
+import { getAboutMe, prepareStrapiRichTextHtml } from '@lib/strapi';
 import { renderRichText } from '@lib/utils';
 
 export default async function About() {
   const aboutMe = await getAboutMe();
-  console.log(aboutMe);
+  const aboutHtml = prepareStrapiRichTextHtml(
+    renderRichText(aboutMe?.Content) || ''
+  );
 
   return (
     <section id="about" className="py-16 md:py-24 container mx-auto relative">
@@ -33,12 +35,8 @@ export default async function About() {
           <h2 className="text-4xl md:text-5xl font-bold text-amber-900 font-serif">
             Hi, Im <span className="text-rose-600">Elene</span>
           </h2>
-          <div className="prose prose-amber max-w-none bg-amber-50 p-8 rounded-lg shadow-md bg-[url('/images/vintage-paper-texture.png')] bg-repeat blog-content">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: renderRichText(aboutMe?.Content) || '',
-              }}
-            />
+          <div className="bg-amber-50 p-8 rounded-lg shadow-md bg-[url('/images/vintage-paper-texture.png')] bg-repeat blog-content">
+            <RichTextWithImageLightbox html={aboutHtml} embedded />
 
             <div className="space-y-4">
               <div className="pt-4">

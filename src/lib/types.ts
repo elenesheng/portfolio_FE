@@ -5,7 +5,7 @@ export interface StrapiPost {
   title: string;
   content: string;
   excerpt: string;
-  slug: string;
+  slug: string | null;
   publishedAt: string;
   createdAt: string;
   updatedAt: string;

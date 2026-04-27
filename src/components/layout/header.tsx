@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import { HeaderLogoCube } from '@components/header-logo-cube';
 import { scrollToSection } from '@/lib/utils';
 
 export default function Header() {
@@ -27,7 +28,7 @@ export default function Header() {
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-amber-50/95 backdrop-blur supports-[backdrop-filter]:bg-amber-50/60">
       <div className="container mx-auto flex h-16 items-center justify-between">
-        <div className="font-bold text-2xl font-serif text-amber-900">ESH</div>
+        <HeaderLogoCube />
         <div className="hidden md:flex gap-6">
           <Link
             href="/"
