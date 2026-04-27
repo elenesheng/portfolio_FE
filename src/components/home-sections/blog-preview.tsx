@@ -72,7 +72,7 @@ export default async function BlogPreview() {
             <div key={id}>
               <Link href={`/blog/${postPathSegment(post)}`} className="group">
                 <Card className="overflow-hidden border-amber-200 hover:border-amber-400 transition-colors duration-300">
-                  <div className="relative h-64 overflow-hidden bg-amber-100 bg-[url('/images/vintage-paper-texture.png')] bg-repeat">
+                  <div className="relative h-64 overflow-hidden bg-amber-100">
                     {post.category && (
                       <div className="absolute top-2 left-2 z-10 flex flex-wrap gap-2">
                         <Badge className="bg-rose-600 hover:bg-rose-700 text-white rounded-sm px-2 py-1">
@@ -84,7 +84,7 @@ export default async function BlogPreview() {
                       src={imageUrl}
                       alt={title}
                       fill
-                      className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
                   <CardContent className="p-6 bg-amber-50">

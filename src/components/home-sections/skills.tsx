@@ -67,9 +67,6 @@ export default function Skills() {
             <div className="relative z-10 bg-amber-50 p-8 rounded-lg border-4 border-amber-200 shadow-xl">
               <div className="space-y-6">
                 <RetroIcon />
-                <h3 className="text-2xl font-bold text-amber-900 font-serif">
-                  My Approach
-                </h3>
                 <p className="text-amber-800 leading-relaxed">
                   I work full time as a full-stack developer, mostly with React,
                   Next.js, Node.js, and headless CMS like Strapi and Drupal. I

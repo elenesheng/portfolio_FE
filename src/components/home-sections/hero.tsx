@@ -27,9 +27,6 @@ export default function Hero() {
           <h1 className="text-5xl md:text-7xl font-bold text-amber-900 font-serif">
             Elene <span className="text-rose-600">Shengelia</span>
           </h1>
-          <p className="text-xl md:text-2xl text-amber-800 max-w-2xl mx-auto font-serif">
-            Software Developer & Tech writer
-          </p>
 
           <div className="pt-8 flex flex-wrap gap-4 justify-center">
             <Button
