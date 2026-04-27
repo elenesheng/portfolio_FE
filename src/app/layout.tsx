@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ['latin'] });
 const siteUrl = getSiteUrl();
 
 const siteDescription =
-  'Full-time full-stack developer working with React, Next.js, and headless CMSs (Strapi, Drupal). Occasional freelance when a project interests me. Tech writing, small creative-code experiments, practical notes on AI helpers in real projects, and film & street photography.';
+  'Full-time full-stack developer working with React, Next.js, Node.js, and headless CMS (Strapi, Drupal). Occasional freelance when a project interests me. Tech writing, small creative-code experiments, practical notes on AI helpers in real projects, and film & street photography.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

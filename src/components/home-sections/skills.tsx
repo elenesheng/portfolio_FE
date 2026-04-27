@@ -37,7 +37,7 @@ export default function Skills() {
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <div className="space-y-8">
+            <ul className="flex flex-wrap gap-3">
               {[
                 { name: 'Front-End Development', color: '#C2410C' },
                 { name: 'Full-Stack Development', color: '#EA580C' },
@@ -46,20 +46,20 @@ export default function Skills() {
                 { name: 'Headless CMS', color: '#FDBA74' },
                 { name: 'AI tools in real projects', color: '#D97706' },
                 { name: 'Photography', color: '#E11D48' },
-              ].map((skill, index) => (
-                <div key={index} className="space-y-2">
-                  <span className="font-medium text-amber-900">
-                    {skill.name}
-                  </span>
-                  <div className="h-3 w-full bg-amber-200 rounded-full overflow-hidden">
-                    <div
-                      className="h-full w-full rounded-full transition-all duration-1000 ease-out"
-                      style={{ backgroundColor: skill.color }}
-                    />
-                  </div>
-                </div>
+              ].map((skill) => (
+                <li
+                  key={skill.name}
+                  className="inline-flex items-center gap-2 rounded-full border-2 border-amber-900 bg-[#fffbeb] px-4 py-2 text-sm font-medium text-amber-950 shadow-[3px_3px_0_0_#78350f] transition hover:-translate-y-0.5 hover:bg-amber-100"
+                >
+                  <span
+                    aria-hidden
+                    className="h-2.5 w-2.5 rounded-full"
+                    style={{ backgroundColor: skill.color }}
+                  />
+                  {skill.name}
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
           <div className="relative">
@@ -72,9 +72,9 @@ export default function Skills() {
                 </h3>
                 <p className="text-amber-800 leading-relaxed">
                   I work full time as a full-stack developer, mostly with React,
-                  Next.js, and headless CMSs like Strapi and Drupal. I still take
-                  on occasional freelance projects when the work genuinely
-                  interests me.
+                  Next.js, Node.js, and headless CMS like Strapi and Drupal. I
+                  still take on occasional freelance projects when the work
+                  genuinely interests me.
                 </p>
                 <p className="text-amber-800 leading-relaxed">
                   While I specialize in front-end and full-stack projects, I’m
