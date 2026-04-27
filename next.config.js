@@ -3,12 +3,12 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['localhost', 'your-strapi-cloud-url.strapiapp.com'],
     remotePatterns: [
+      // Strapi Cloud CDN: e.g. *.media.strapiapp.com with paths like /small_*.jpg (not /uploads/)
       {
         protocol: 'https',
-        hostname: '*.strapiapp.com',
-        pathname: '/uploads/**',
+        hostname: '**.strapiapp.com',
+        pathname: '/**',
       },
       {
         protocol: 'http',
