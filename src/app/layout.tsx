@@ -10,27 +10,27 @@ const inter = Inter({ subsets: ['latin'] });
 
 const siteUrl = getSiteUrl();
 
+const siteDescription =
+  'Full-time full-stack developer working with React, Next.js, and headless CMSs (Strapi, Drupal). Occasional freelance when a project interests me. Tech writing, small creative-code experiments, practical notes on AI helpers in real projects, and film & street photography.';
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Elene Shengelia · Freelance full-stack developer',
+    default: 'Elene Shengelia · Full-stack developer',
     template: '%s | Elene Shengelia',
   },
-  description:
-    'Freelance React and Next.js work with headless CMSs (Strapi, Drupal). Tech writing, small creative-code experiments, practical notes on AI helpers in real projects, and film & street photography.',
+  description: siteDescription,
   openGraph: {
     type: 'website',
     locale: 'en_US',
     siteName: 'Elene Shengelia',
-    title: 'Elene Shengelia · Freelance full-stack developer',
-    description:
-      'Freelance React and Next.js work with headless CMSs (Strapi, Drupal). Tech writing, small creative-code experiments, practical notes on AI helpers in real projects, and film & street photography.',
+    title: 'Elene Shengelia · Full-stack developer',
+    description: siteDescription,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Elene Shengelia · Freelance full-stack developer',
-    description:
-      'Freelance React and Next.js work with headless CMSs (Strapi, Drupal). Tech writing, small creative-code experiments, practical notes on AI helpers in real projects, and film & street photography.',
+    title: 'Elene Shengelia · Full-stack developer',
+    description: siteDescription,
   },
 };
 

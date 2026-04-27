@@ -71,10 +71,10 @@ export default function Skills() {
                   My Approach
                 </h3>
                 <p className="text-amber-800 leading-relaxed">
-                  As a freelancer, I’ve helped companies build full-stack web
-                  apps using React, Next.js, and headless CMSs like Strapi, and
-                  Drupal. I focus on practical, user-friendly solutions that
-                  meet real business needs.
+                  I work full time as a full-stack developer, mostly with React,
+                  Next.js, and headless CMSs like Strapi and Drupal. I still take
+                  on occasional freelance projects when the work genuinely
+                  interests me.
                 </p>
                 <p className="text-amber-800 leading-relaxed">
                   While I specialize in front-end and full-stack projects, I’m
